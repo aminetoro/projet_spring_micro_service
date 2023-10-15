@@ -1,29 +1,21 @@
-package org.sid.account_service.entities;
+package org.sid.account_service.dto;
 
-
-import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.sid.account_service.entities.AccountType;
 
 import java.util.Date;
 
-@Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class BankAccount {
-    @Id
+@AllArgsConstructor @NoArgsConstructor @Builder
+public class BankAccountResponseDTO {
     private String id;
     private Date createdAt;
-    private double balance;
     private String currency;
-    @Enumerated(EnumType.STRING)
+    private Double balance;
     private AccountType type;
 }
-

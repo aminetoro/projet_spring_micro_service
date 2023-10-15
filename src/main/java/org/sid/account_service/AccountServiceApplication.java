@@ -32,7 +32,7 @@ public class AccountServiceApplication {
 
 //            BankAccount bankAccount = new BankAccount(UUID.randomUUID().toString(), new Date(), 6500, AccountType.CURRENT_ACCOUNT);
             for(int i=0;i<10;i++){
-                BankAccount bankAccount = BankAccount.builder().id(UUID.randomUUID().toString()).createdAt(new Date()).type(Math.random()>0.5?AccountType.CURRENT_ACCOUNT:AccountType.SAVING_ACCOUNT).balance(6500).build();
+                BankAccount bankAccount = BankAccount.builder().id(UUID.randomUUID().toString()).createdAt(new Date()).type(Math.random()>0.5?AccountType.CURRENT_ACCOUNT:AccountType.SAVING_ACCOUNT).balance(Math.random()>0.5?521:332).currency(Math.random()>0.5?"MAD":"EURO").build();
                 accountRepository.save(bankAccount);
             }
 

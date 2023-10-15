@@ -2,21 +2,26 @@ package org.sid.account_service.web;
 
 
 import org.sid.account_service.dao.AccountRepository;
+import org.sid.account_service.dto.BankAccountRequestDTO;
+import org.sid.account_service.dto.BankAccountResponseDTO;
 import org.sid.account_service.entities.BankAccount;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.sid.account_service.mappers.AccountMapper;
+import org.sid.account_service.services.AccountServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 public class BankAccountRestController {
 
     private AccountRepository accountRepository;
+    private AccountServiceImpl accountService;
+    private AccountMapper accountMapper;
 
-    public BankAccountRestController(AccountRepository accountRepository) {
+    public BankAccountRestController(AccountRepository accountRepository, AccountServiceImpl accountService, AccountMapper accountMapper) {
         this.accountRepository = accountRepository;
+        this.accountService = accountService;
+        this.accountMapper = accountMapper;
     }
 
     @GetMapping("/bankAccounts")
@@ -29,10 +34,8 @@ public class BankAccountRestController {
         return accountRepository.findById(id).get();
     }
     @PostMapping("/bankAccounts")
-    public BankAccount saveAccount(@RequestBody BankAccount bankAccount){
-        bankAccount.setId(UUID.randomUUID().toString());
-        bankAccount.setCreatedAt(new Date());
-        return accountRepository.save(bankAccount);
+    public BankAccountResponseDTO saveAccount(@RequestBody BankAccountRequestDTO bankAccount){
+        return accountService.addAccount(bankAccount);
     }
     @DeleteMapping("/bankAccounts/{id}")
     public void deleteAccount(@PathVariable String id){
